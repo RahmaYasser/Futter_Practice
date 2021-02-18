@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 
 class Question extends StatelessWidget {
   String question;
 
-  Question(this.question);
+  Question(question);
 
   @override
   Widget build(BuildContext context) {

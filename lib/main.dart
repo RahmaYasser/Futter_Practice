@@ -14,28 +14,52 @@ class MyApp extends StatefulWidget {
     return _MyAppState();
   }
 }
- class _MyAppState extends State<MyApp>{
+
+class _MyAppState extends State<MyApp> {
+  static const quizQuestionsAndAnswers = [
+    {
+      'questionText': 'What is your favorite TV show?',
+      'answers': [
+        'I\'m the one who knocks',
+        'Truth begins with lies',
+        'Haaave you met Ted?',
+        'I know a guy who knows a guy'
+      ]
+    },
+    {
+      'questionText': 'Which cafe is the nearest to you?',
+      'answers': [
+        'The Platform',
+        'Grand Maadi',
+        'Silver Nile',
+        'Nile Point',
+      ]
+    },
+  ];
   int qIndex = 0;
-  var Questions = ["what's your fav food?","Your fav Movie?"];
-  void myAnswer(){
-    print("qIndex");
+  void myAnswer() {
+    print(qIndex);
     setState(() {
       qIndex++;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
-              title: Text("Telegram"),
+              title: Text("Gathering info to know if you're cool"),
             ),
-            body: Column(children: [
-              Question(Questions[qIndex]),
-              Answer(txt: "Answer 1",selectHandler: myAnswer),
-              Answer(txt: "Answer 2", selectHandler: myAnswer),
-              Answer(txt: "Answer 3",selectHandler: myAnswer),
-            ])));
+            body:(qIndex<quizQuestionsAndAnswers.length)? Column(children: [
+              Question(quizQuestionsAndAnswers[qIndex]['questionText']),
+              ...(quizQuestionsAndAnswers[qIndex]['answers'] as List<String>)
+                  .map((answer) {
+                return Answer(txt: answer, selectHandler: myAnswer);
+              }).toList(),
+            ]):
+            Center(child: Text("Ohh Rahma you are cool as hell :')"),)
+        ));
   }
 }
 /*
